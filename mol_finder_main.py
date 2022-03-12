@@ -39,7 +39,8 @@ def get_data(file_name):
 # }
 
 with title_con:
-    st.title('Mol Finder')
+    # st.title('Mol Finder')
+    st.image('title.png')
 
 with main_con:
     df = get_data('drug_bank_database.csv')
