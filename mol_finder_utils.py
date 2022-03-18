@@ -59,7 +59,7 @@ def get_list_range(default_values):
     if ss['pws_min'] != default_values['pws_min'] or ss['pws_max'] != default_values['pws_max']:
         list_range.append(['predicted_water_solubility', ss['pws_min'], ss['pws_max'], 'Predicted Water Solubility'])
     if ss['pb_min'] != default_values['pb_min'] or ss['pb_max'] != default_values['pb_max']:
-        list_range.append(['pb_low', 'pb_high', ss['pb_max'], ss['pb_max'], 'Protein Binding'])
+        list_range.append(['pb_low', 'pb_high', ss['pb_min'], ss['pb_max'], 'Protein Binding'])
     if ss['hl_min'] != default_values['hl_min'] or ss['hl_max'] != default_values['hl_max']:
         list_range.append(['half_life_low', 'half_life_high', ss['hl_min'], ss['hl_max'], 'Half Life'])
     if ss['logp_min'] != default_values['logp_min'] or ss['logp_max'] != default_values['logp_max']:
@@ -123,6 +123,7 @@ def get_filtered_drugs(df, smiles_dict=None, list_range=None,  roa=None):
     id_list = []
     name_list = []
     roa_list = []
+    # st.write(list_range)
     if list_range:
         mol_filter_lists = [[] for i in range(len(list_range))]
     if roa:
