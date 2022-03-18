@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 
+# Constants
+num_of_digits = 2
+
 
 def get_min_max_filter(user_input_col_1, user_input_col_2, label, df_col_low, df_col_high, key_name, step=None, format_type=None):
 
@@ -11,8 +14,8 @@ def get_min_max_filter(user_input_col_1, user_input_col_2, label, df_col_low, df
         user_input_col_2.number_input('', int(df_col_high.min()), int(df_col_high.max()), value=int(df_col_high.max()), key=f'{key_name}_max', step=step)
 
     else:
-        user_input_col_1.number_input(label, df_col_low.min(), df_col_low.max(), value=df_col_low.min(), key=f'{key_name}_min', step=step)
-        user_input_col_2.number_input('', df_col_high.min(), df_col_high.max(), value=df_col_high.max(), key=f'{key_name}_max', step=step)
+        user_input_col_1.number_input(label, round(df_col_low.min(), num_of_digits), round(df_col_low.max(), num_of_digits), value=round(df_col_low.min(), num_of_digits), key=f'{key_name}_min', step=step)
+        user_input_col_2.number_input('', round(df_col_high.min(), num_of_digits), round(df_col_high.max(), num_of_digits), value=round(df_col_high.max(), num_of_digits), key=f'{key_name}_max', step=step)
 
 
 def set_filters_val_to_default(default_values):
@@ -56,8 +59,8 @@ def get_list_range(default_values):
     if ss['pws_min'] != default_values['pws_min'] or ss['pws_max'] != default_values['pws_max']:
         list_range.append(['predicted_water_solubility', ss['pws_min'], ss['pws_max'], 'Predicted Water Solubility'])
     if ss['pb_min'] != default_values['pb_min'] or ss['pb_max'] != default_values['pb_max']:
-        list_range.append(['pb_low', 'pb_high', ss['hl_max'], ss['hl_max'], 'Protein Binding'])
-    if ss['hl_min'] != default_values['hl_min'] or ss['pb_max'] != default_values['pb_max']:
+        list_range.append(['pb_low', 'pb_high', ss['pb_max'], ss['pb_max'], 'Protein Binding'])
+    if ss['hl_min'] != default_values['hl_min'] or ss['hl_max'] != default_values['hl_max']:
         list_range.append(['half_life_low', 'half_life_high', ss['hl_min'], ss['hl_max'], 'Half Life'])
     if ss['logp_min'] != default_values['logp_min'] or ss['logp_max'] != default_values['logp_max']:
         list_range.append(['experimental_logP', ss['logp_min'], ss['logp_max'], 'Experimental LogP'])
@@ -167,20 +170,26 @@ def get_filtered_drugs(df, smiles_dict=None, list_range=None,  roa=None):
     return results_df
 
 
+def get_bold_headers(results_df):
+    bold_list = []
+    for col in list(results_df):
+        bold_list.append('<b>' + col)
+    return bold_list
+
+
 def plot_result_df(results_df, results_filed):
     if results_df is None:
         results_filed.code('the results will appear here...', language="markdown")
         return
-
     if not results_df.empty:
         fig = go.Figure(data=go.Table(
-            header=dict(values=list(results_df),
+            header=dict(values=get_bold_headers(results_df),
                         fill_color='#CAC4FF',
                         align='center'),
             cells=dict(values=results_df.transpose().values.tolist(),
                        fill_color='#E5ECF6',
                        align='left')))
-        fig.update_layout(margin=dict(l=0, r=0, b=0, t=0), width=135*len(list(results_df)))
+        fig.update_layout(margin=dict(l=0, r=0, b=0, t=0), width=135*len(list(results_df)), height=1000)
         results_filed.write(fig)
     elif results_df.empty:
         results_filed.code('No results were found, please try to relax the constraints', language="markdown")
