@@ -134,11 +134,11 @@ with main_con:
     user_input_col_1.markdown('##### Min')
     user_input_col_2.markdown('##### Max')
 
-    get_min_max_filter(user_input_col_1, user_input_col_2, 'Predicted Water Solubility',
+    get_min_max_filter(user_input_col_1, user_input_col_2, 'Predicted Water Solubility [mg/mL]',
                                    df['predicted_water_solubility'], df['predicted_water_solubility'], 'pws', step=0.5)
-    get_min_max_filter(user_input_col_1, user_input_col_2, 'Protein Binding', df['pb_low'], df['pb_high'],
+    get_min_max_filter(user_input_col_1, user_input_col_2, 'Protein Binding [%]', df['pb_low'], df['pb_high'],
                                   'pb', step=0.1)
-    get_min_max_filter(user_input_col_1, user_input_col_2, 'Half Life', df['half_life_low'],
+    get_min_max_filter(user_input_col_1, user_input_col_2, 'Half Life [hours]', df['half_life_low'],
                                   df['half_life_high'], 'hl', step=1.0)
     get_min_max_filter(user_input_col_1, user_input_col_2, 'Experimental LogP', df['experimental_logP'],
                                     df['experimental_logP'], 'logp', step=0.5)
@@ -148,9 +148,9 @@ with main_con:
                                    df['pKa_strongest_basic'], 'pkb', step=0.5)
     get_min_max_filter(user_input_col_1, user_input_col_2, 'Molecule Formal Charge', df['total_charge'],
                                       df['total_charge'], 'charge', format_type='int')
-    get_min_max_filter(user_input_col_1, user_input_col_2, 'Dose Normalized Strength', df['strength_norm'],
+    get_min_max_filter(user_input_col_1, user_input_col_2, 'Dose Normalized Strength [mg]', df['strength_norm'],
                                    df['strength_norm'], 'dose', step=10.0)
-    get_min_max_filter(user_input_col_1, user_input_col_2, 'Molecular Weight', df['molecular_weight'],
+    get_min_max_filter(user_input_col_1, user_input_col_2, 'Molecular Weight [g/mol]', df['molecular_weight'],
                                   df['molecular_weight'], 'mw', step=10.0)
     get_min_max_filter(user_input_col_1, user_input_col_2, '# Rings', df['n_rings'], df['n_rings'],
                                        'n_rings', format_type='int')

@@ -106,7 +106,6 @@ def get_smiles_dict():
                 smiles_dict[f'OR_{cur_smiles_key_atom}'] = int(cur_smiles_count_num)
             else:
                 smiles_dict[f'AND_{cur_smiles_key_atom}'] = int(cur_smiles_count_num)
-    st.write(smiles_dict)
     if smiles_dict == {}:
         return None
     else:
