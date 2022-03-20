@@ -30,6 +30,8 @@ def get_data(file_name):
     df = pd.read_csv(file_name)
     default_values= {}
     default_values['smiles_1'] = ''
+    default_values['smiles_1a'] = ''
+    default_values['smiles_1b'] = ''
     default_values['smiles_2'] = ''
     default_values['smiles_3'] = ''
     default_values['smiles_count_1'] = 1
@@ -95,7 +97,6 @@ with buttons_con:
     clear_button = button_col1.button('Clear Filters')
 
     if clear_button:
-
         set_filters_val_to_default(default_values)
 
 with main_con:
@@ -104,10 +105,24 @@ with main_con:
     result_str = 'the results will appear here...'
     user_input_col_1.subheader('Filters')
     smiles_str_1 = user_input_col_1.text_input('SMILES string I', key='smiles_1')
-    smiles_str_2 = user_input_col_1.text_input('SMILES string II', key='smiles_2')
-    smiles_str_3 = user_input_col_1.text_input('SMILES string III', key='smiles_3')
+    smiles_str_1a = user_input_col_1.text_input('SMILES string I A (or)', key='smiles_1a')
+    smiles_str_1b = user_input_col_1.text_input('SMILES string I B (or)', key='smiles_1b')
+    smiles_str_2 = user_input_col_1.text_input('SMILES string II (and)', key='smiles_2')
+    smiles_str_3 = user_input_col_1.text_input('SMILES string III (and)', key='smiles_3')
     user_input_col_2.subheader('Occurrences')
     smiles_count_1 = user_input_col_2.number_input(' ', 1, 99, key='smiles_count_1')
+    user_input_col_2.markdown('#####')
+    user_input_col_2.markdown('#####')
+    user_input_col_2.markdown('#####')
+    user_input_col_2.markdown('#####')
+    user_input_col_2.markdown('#####')
+    user_input_col_2.markdown('#####')
+    user_input_col_2.markdown('#####')
+    user_input_col_2.markdown('#####')
+    user_input_col_2.markdown('#####')
+    user_input_col_2.markdown('#####')
+    user_input_col_2.markdown('#####')
+    user_input_col_2.markdown('#####')
     smiles_count_2 = user_input_col_2.number_input(' ', 1, 99, key='smiles_count_2')
     smiles_count_3 = user_input_col_2.number_input(' ', 1, 99, key='smiles_count_3')
 

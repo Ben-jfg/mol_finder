@@ -27,7 +27,12 @@ def set_filters_val_to_default(default_values):
 
 
 def is_atom_in_smiles_enough_times(smiles, atom, min_count):
-    cur_occurrences = smiles.count(atom)
+    if len(atom) == 1:
+        cur_occurrences = smiles.count(atom[0])
+    else:
+        cur_occurrences = 0
+        for cur_atom in atom:
+            cur_occurrences += smiles.count(cur_atom)
     if cur_occurrences >= min_count:
         return True
     else:
@@ -91,11 +96,17 @@ def get_list_range(default_values):
 
 def get_smiles_dict():
     smiles_dict = {}
-    for cur_smiles_key, cur_smiles_val in zip([st.session_state['smiles_1'],st.session_state['smiles_2'],st.session_state['smiles_3']],
-                                              [st.session_state['smiles_count_1'],st.session_state['smiles_count_2'],st.session_state['smiles_count_3']]):
-        smiles_key = cur_smiles_key
-        if smiles_key != '':
-            smiles_dict[smiles_key] = int(cur_smiles_val)
+    ss = st.session_state
+    for cur_smiles_key, cur_smiles_val in zip(['smiles_1','smiles_1a','smiles_1b','smiles_2','smiles_3'],
+                                              ['smiles_count_1','smiles_count_1','smiles_count_1','smiles_count_2','smiles_count_3']):
+        cur_smiles_key_atom = ss[cur_smiles_key]
+        cur_smiles_count_num = ss[cur_smiles_val]
+        if cur_smiles_key_atom != '':
+            if cur_smiles_key.startswith('smiles_1'):
+                smiles_dict[f'OR_{cur_smiles_key_atom}'] = int(cur_smiles_count_num)
+            else:
+                smiles_dict[f'AND_{cur_smiles_key_atom}'] = int(cur_smiles_count_num)
+    st.write(smiles_dict)
     if smiles_dict == {}:
         return None
     else:
@@ -103,9 +114,20 @@ def get_smiles_dict():
 
 
 def is_smiles_condition_met(row, smiles_dict):
+    or_list = []
+    or_min_count = 0
     for key, min_count in smiles_dict.items():
-        if not is_atom_in_smiles_enough_times(row['SMILES'], key, min_count):
+        if key.startswith('OR_'):
+            or_list.append(key.split('OR_')[1])
+            or_min_count = min_count
+        else:
+            if not is_atom_in_smiles_enough_times(row['SMILES'], [key.split('AND_')[1]], min_count):
+                return False
+
+    if or_list:
+        if not is_atom_in_smiles_enough_times(row['SMILES'], or_list, or_min_count):
             return False
+
     return True
 
 
