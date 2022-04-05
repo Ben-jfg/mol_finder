@@ -40,6 +40,7 @@ def is_atom_in_smiles_enough_times(smiles, atom, min_count):
 
 
 def is_param_in_range(row, param_values):
+
     if len(param_values) == 4: # one df column
         param_name = param_values[0]
         range_min = float(param_values[1])
@@ -91,6 +92,7 @@ def get_list_range(default_values):
         list_range.append(['n_saturated_heterocycles', ss['n_saturated_heterocycles_min'], ss['n_saturated_heterocycles_max'], '# Saturated Heterocyclesg'])
     if ss['n_aliphatic_heterocycles_min'] != default_values['n_aliphatic_heterocycles_min'] or ss['n_aliphatic_heterocycles_max'] != default_values['n_aliphatic_heterocycles_max']:
         list_range.append(['n_aliphatic_heterocycles', ss['n_aliphatic_heterocycles_min'], ss['n_aliphatic_heterocycles_max'], '# Aliphatic Heterocycles'])
+    st.write(list_range)
     return list_range
 
 
@@ -145,6 +147,7 @@ def get_filtered_drugs(df, smiles_dict=None, list_range=None,  roa=None):
     name_list = []
     roa_list = []
     # st.write(list_range)
+    st.write(df)
     if list_range:
         mol_filter_lists = [[] for i in range(len(list_range))]
     if roa:
@@ -152,6 +155,8 @@ def get_filtered_drugs(df, smiles_dict=None, list_range=None,  roa=None):
         df = df[df['route'].notna()]
 
     for index, row in df.iterrows():
+        # if row['name'] == 'Trametinib':
+        #     st.write(row)
         if roa:
             if roa not in row['route'].lower():
                 continue
