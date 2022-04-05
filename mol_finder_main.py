@@ -24,6 +24,7 @@ image_con = st.container()
 #     unsafe_allow_html=True
 # )
 
+## TODO: 2. add CAS?
 
 @st.cache(allow_output_mutation=True)
 def get_data(file_name):
@@ -93,7 +94,7 @@ with title_con:
     st.image('title.png')
 
 with buttons_con:
-    button_col1, button_col2, button_col3, button_col4 = st.columns([1, 1, 1, 7])
+    button_col1, button_col2, button_col3, button_col4 = st.columns([1, 1, 1, 5])
     clear_button = button_col1.button('Clear Filters')
 
     if clear_button:
@@ -111,25 +112,30 @@ with main_con:
     smiles_str_3 = user_input_col_1.text_input('SMILES string III (and)', key='smiles_3')
     user_input_col_2.subheader('Occurrences')
     smiles_count_1 = user_input_col_2.number_input(' ', 1, 99, key='smiles_count_1')
-    user_input_col_2.markdown('#####')
-    user_input_col_2.markdown('#####')
-    user_input_col_2.markdown('#####')
-    user_input_col_2.markdown('#####')
-    user_input_col_2.markdown('#####')
-    user_input_col_2.markdown('#####')
-    user_input_col_2.markdown('#####')
-    user_input_col_2.markdown('#####')
-    user_input_col_2.markdown('#####')
-    user_input_col_2.markdown('#####')
-    user_input_col_2.markdown('#####')
-    user_input_col_2.markdown('#####')
+    user_input_col_2.text_input('-', key='hold1', disabled=True)
+    user_input_col_2.text_input('-', key='hold2', disabled=True)
+
+    # user_input_col_2.markdown('#####')
+    # user_input_col_2.markdown('#####')
+    # user_input_col_2.markdown('#####')
+    # user_input_col_2.markdown('#####')
+    # user_input_col_2.markdown('#####')
+    # user_input_col_2.markdown('#####')
+    # user_input_col_2.markdown('#####')
+    # user_input_col_2.markdown('#####')
+    # user_input_col_2.markdown('#####')
+    # user_input_col_2.markdown('#####')
+    # user_input_col_2.markdown('#####')
+    # user_input_col_2.markdown('#####')
     smiles_count_2 = user_input_col_2.number_input(' ', 1, 99, key='smiles_count_2')
     smiles_count_3 = user_input_col_2.number_input(' ', 1, 99, key='smiles_count_3')
 
     roa_str = user_input_col_1.text_input('Route of Administration', key='roa')
-    user_input_col_2.markdown('#')
-    user_input_col_2.markdown('#')
-    user_input_col_2.markdown('###')
+    user_input_col_2.text_input('-', key='hold3', disabled=True)
+
+    # user_input_col_2.markdown('#')
+    # user_input_col_2.markdown('#')
+    # user_input_col_2.markdown('###')
 
     user_input_col_1.markdown('##### Min')
     user_input_col_2.markdown('##### Max')
