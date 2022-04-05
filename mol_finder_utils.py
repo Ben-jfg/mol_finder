@@ -183,14 +183,14 @@ def get_filtered_drugs(df, smiles_dict=None, list_range=None,  roa=None):
 
     results_df['DrugBank ID'] = id_list
     results_df['Name'] = name_list
-    results_df = results_df.sort_values(by=['Name'])
-    results_df.insert(loc=0, column='Index', value= list(range(1, len(id_list)+1)))
-
     if roa:
         results_df['Route of Administration'] = roa_list
     if list_range:
         for ind, cur_param in zip(range(len(list_range)), list_range):
             results_df[cur_param[-1]] = mol_filter_lists[ind]
+
+    results_df = results_df.sort_values(by=['Name'])
+    results_df.insert(loc=0, column='Index', value= list(range(1, len(id_list)+1)))
     return results_df
 
 
