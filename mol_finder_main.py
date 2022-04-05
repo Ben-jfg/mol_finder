@@ -26,9 +26,10 @@ image_con = st.container()
 
 ## TODO: 2. add CAS?
 
-@st.cache(allow_output_mutation=True)
+@st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def get_data(data_base_file_name):
     df = pd.read_csv(data_base_file_name)
+    st.write('')
     default_values= {}
     default_values['smiles_1'] = ''
     default_values['smiles_1a'] = ''

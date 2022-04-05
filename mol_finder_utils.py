@@ -181,9 +181,11 @@ def get_filtered_drugs(df, smiles_dict=None, list_range=None,  roa=None):
         id_list.append(row['ID'])
         name_list.append(row['name'])
 
-    results_df['Index'] = list(range(1, len(id_list)+1))
     results_df['DrugBank ID'] = id_list
     results_df['Name'] = name_list
+    results_df = results_df.sort_values(by=['Name'])
+    results_df.insert(loc=0, column='Index', value= list(range(1, len(id_list)+1)))
+
     if roa:
         results_df['Route of Administration'] = roa_list
     if list_range:
@@ -204,7 +206,6 @@ def plot_result_df(results_df, results_filed):
         results_filed.code('the results will appear here...', language="markdown")
         return
     if not results_df.empty:
-        results_df = results_df.sort_values(by=['Name'])
         fig = go.Figure(data=go.Table(
             header=dict(values=get_bold_headers(results_df),
                         fill_color='#CAC4FF',
