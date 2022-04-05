@@ -26,7 +26,7 @@ image_con = st.container()
 
 ## TODO: 2. add CAS?
 
-@st.cache(allow_output_mutation=True)
+# @st.cache(allow_output_mutation=True)
 def get_data(file_name):
     df = pd.read_csv(file_name)
     default_values= {}

@@ -92,7 +92,6 @@ def get_list_range(default_values):
         list_range.append(['n_saturated_heterocycles', ss['n_saturated_heterocycles_min'], ss['n_saturated_heterocycles_max'], '# Saturated Heterocyclesg'])
     if ss['n_aliphatic_heterocycles_min'] != default_values['n_aliphatic_heterocycles_min'] or ss['n_aliphatic_heterocycles_max'] != default_values['n_aliphatic_heterocycles_max']:
         list_range.append(['n_aliphatic_heterocycles', ss['n_aliphatic_heterocycles_min'], ss['n_aliphatic_heterocycles_max'], '# Aliphatic Heterocycles'])
-    st.write(list_range)
     return list_range
 
 
@@ -147,7 +146,6 @@ def get_filtered_drugs(df, smiles_dict=None, list_range=None,  roa=None):
     name_list = []
     roa_list = []
     # st.write(list_range)
-    st.write(df)
     if list_range:
         mol_filter_lists = [[] for i in range(len(list_range))]
     if roa:
@@ -155,8 +153,6 @@ def get_filtered_drugs(df, smiles_dict=None, list_range=None,  roa=None):
         df = df[df['route'].notna()]
 
     for index, row in df.iterrows():
-        # if row['name'] == 'Trametinib':
-        #     st.write(row)
         if roa:
             if roa not in row['route'].lower():
                 continue
@@ -193,7 +189,6 @@ def get_filtered_drugs(df, smiles_dict=None, list_range=None,  roa=None):
     if list_range:
         for ind, cur_param in zip(range(len(list_range)), list_range):
             results_df[cur_param[-1]] = mol_filter_lists[ind]
-    # st.write(results_df)
     return results_df
 
 
